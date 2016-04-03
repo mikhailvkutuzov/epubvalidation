@@ -1,0 +1,24 @@
+# Examples:
+# https://github.com/kernys/Kernys.Bson/blob/master/.gitignore
+
+# Temporary files
+*.bak
+
+# Build results
+*.obj
+*.log
+*.log_*
+
+# IDEA files
+/.idea/workspace.xml
+/.idea/copyright/profiles_settings.xml
+/.idea/ant.xml
+/.idea/compiler.xml
+/.idea/encodings.xml
+/.idea/misc.xml
+/.idea/vcs.xml
+/.idea/uiDesigner.xml
+/.idea/scopes/scope_settings.xml
+/.idea/.name
+/.idea/libraries
+/terget*
