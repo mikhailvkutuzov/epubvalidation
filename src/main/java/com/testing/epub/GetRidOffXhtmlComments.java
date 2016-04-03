@@ -19,15 +19,21 @@ public class GetRidOffXhtmlComments implements Function<String, String> {
             throw new InvalidXhtmlFormatException("The document is finished on " + soc);
         }
 
-        return Stream.of(s.split("soc")).reduce("", (a, b) -> {
-            String[] split = b.split(eoc);
-            if (split.length == 2) {
-                return a + split[1];
-            } else if (split.length == 1) {
-                return a;
-            } else {
-                throw new InvalidXhtmlFormatException("The document does not have an opening comment tag but has a closing one");
-            }
-        });
+        String[] splitWithSoc = s.split(soc);
+
+        if(splitWithSoc.length > 1) {
+            return Stream.of(splitWithSoc).skip(1).reduce(splitWithSoc[0], (a, b) -> {
+                String[] splitWithEoc = b.split(eoc);
+                if (splitWithEoc.length == 2) {
+                    return a + splitWithEoc[1];
+                } else if (splitWithEoc.length == 1) {
+                    return a;
+                } else {
+                    throw new InvalidXhtmlFormatException("The document does not have an opening comment tag but has a closing one");
+                }
+            });
+        } else {
+            return s;
+        }
     }
 }

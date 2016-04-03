@@ -5,6 +5,7 @@ import nl.siegmann.epublib.domain.Book;
 import java.io.IOException;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -23,28 +24,30 @@ public class NoImageFoundValidator implements BookValidator {
 
     @Override
     public List<? extends BookError> validate(Book book) {
-
-        book.getContents().stream()
+        return book.getSpine().getSpineReferences().stream()
+                .map(r -> r.getResource())
                 .filter(r -> r.getMediaType().getName().equals("application/xhtml+xml"))
                 .map(r -> {
                     try {
                         String xhtml = contentNormalizer.apply(new String(r.getData(), r.getInputEncoding()));
-                        Stream.of(xhtml.split(imgTag)).skip(1).filter(s -> {
-                            String path = srcFromImageTag.apply(s.substring(0, s.indexOf(">")));
+                        List<String> strings = Stream.of(xhtml.split(imgTag))
+                                .skip(1)
+                                .map(s -> srcFromImageTag.apply(s.substring(0, s.indexOf(">"))))
+                                .filter(s -> !book.getResources().getResourceMap().containsKey(s))
+                                .collect(Collectors.toList());
 
-
-                        });
-
+                        if (strings.size() > 0) {
+                            return new NoImageFound(r.getId(), strings);
+                        } else {
+                            return null;
+                        }
                     } catch (IOException e) {
                         throw new RuntimeException();
                     }
                 })
-                .
-
-
+                .filter(e -> e != null)
+                .collect(Collectors.toList());
     }
-
-
 
 
 }

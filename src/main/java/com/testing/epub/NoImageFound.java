@@ -1,25 +1,24 @@
 package com.testing.epub;
 
+import java.util.List;
+
 /**
  * Created by mikhail.kutuzov on 03.04.2016.
  */
-public class NoImageFound {
+public class NoImageFound extends BookError{
     private String spinItem;
-    private String imageReference;
+    private List<String> imageReferences;
+
+    public NoImageFound(String spinItem, List<String> imageReferences) {
+        this.spinItem = spinItem;
+        this.imageReferences = imageReferences;
+    }
 
     public String getSpinItem() {
         return spinItem;
     }
 
-    public void setSpinItem(String spinItem) {
-        this.spinItem = spinItem;
-    }
-
-    public String getImageReference() {
-        return imageReference;
-    }
-
-    public void setImageReference(String imageReference) {
-        this.imageReference = imageReference;
+    public List<String> getImageReferences() {
+        return imageReferences;
     }
 }

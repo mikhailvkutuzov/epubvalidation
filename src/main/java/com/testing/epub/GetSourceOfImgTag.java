@@ -10,11 +10,17 @@ public class GetSourceOfImgTag implements Function<String, String> {
 
     @Override
     public String apply(String s) {
-        if( s.indexOf("<") != -1) {
+        if (s.indexOf("<") != -1) {
             throw new InvalidXhtmlFormatException();
         }
         String[] srcAndOther = s.split(srcAttribute);
-        String[] hereAreSourcePath  =  srcAndOther[1].split("\"");
+        if (srcAndOther.length == 1) {
+            srcAndOther = s.split(srcAttribute.trim());
+            if (srcAndOther.length == 1) {
+                throw new InvalidXhtmlFormatException();
+            }
+        }
+        String[] hereAreSourcePath = srcAndOther[1].split("\"");
         return hereAreSourcePath[1];
     }
 }
