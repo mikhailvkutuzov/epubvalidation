@@ -2,6 +2,7 @@ package com.testing.epub;
 
 import nl.siegmann.epublib.domain.Book;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,6 +14,10 @@ public class ComplexValidator implements BookValidator {
 
     public ComplexValidator(List<BookValidator> validators) {
         this.validators = validators;
+    }
+
+    public  ComplexValidator(BookValidator... validators) {
+        this.validators = Arrays.asList(validators);
     }
 
     @Override

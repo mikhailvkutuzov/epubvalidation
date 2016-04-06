@@ -1,0 +1,15 @@
+package com.testing.downloader;
+
+import nl.siegmann.epublib.domain.Book;
+
+import java.net.URI;
+import java.util.stream.Stream;
+
+/**
+ * Created by mikhail.kutuzov on 05.04.2016.
+ */
+public interface BookDownloader {
+
+    Stream<Book> download(URI uri);
+
+}
