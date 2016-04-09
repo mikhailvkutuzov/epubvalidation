@@ -1,6 +1,6 @@
 package com.testing;
 
-import com.testing.downloader.HttpClientDownloder;
+import com.testing.downloader.HttpClientDownloader;
 import com.testing.epub.*;
 import com.testing.out.BookErrorOut;
 import com.testing.out.JsonBookErrorPrinter;
@@ -22,7 +22,7 @@ public class BookTestingManager {
 
         BookErrorOut out = new JsonBookErrorPrinter();
 
-        String report = out.combine(new HttpClientDownloder()
+        String report = out.combine(new HttpClientDownloader()
                 .download(uri)
                 .parallel()
                 .map(b -> out.out(b.getTitle(), validator.validate(b)))

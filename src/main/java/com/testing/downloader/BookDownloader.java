@@ -3,6 +3,7 @@ package com.testing.downloader;
 import nl.siegmann.epublib.domain.Book;
 
 import java.net.URI;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -10,6 +11,6 @@ import java.util.stream.Stream;
  */
 public interface BookDownloader {
 
-    Stream<Book> download(URI uri);
+    Stream<Optional<Book>> download(URI uri);
 
 }
